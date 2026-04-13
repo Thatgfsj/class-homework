@@ -2,124 +2,158 @@
 
 > 一个优美的新中式风格作业发布静态网站
 
-## 🌸 项目简介
+## 访问地址
 
-这是一个为中文233班设计的作业发布平台，采用「墨韵书香」设计理念，融合传统水墨元素与现代极简设计。
+**网站**: https://thatgfsj.github.io/class-homework/
 
-**访问地址**: https://xxgczw233.github.io/class-homework
+**GitHub 仓库**: https://github.com/Thatgfsj/class-homework
 
-## ✨ 功能特性
+---
 
-- 📋 作业列表展示 - 卡片式布局，美观清晰
-- 🔍 搜索筛选 - 支持按科目和关键词快速查找
-- ⏰ 截止倒计时 - 实时显示距截止日期
-- 📱 响应式设计 - 完美适配手机、平板、电脑
-- 🎨 新中式美学 - 墨青朱砂，书卷气息
+## 功能特性
 
-## 🚀 部署到 GitHub Pages
+- 作业卡片展示 - 按科目分类，彩色边条区分
+- 截止倒计时 - 实时显示距截止日期
+- 搜索筛选 - 支持按科目和关键词快速查找
+- 点击展开 - 查看作业详细信息
+- 响应式设计 - 适配手机、平板、电脑
 
-### 方法一：手动部署
+---
 
-1. **创建 GitHub 仓库**
-   - 登录 GitHub，点击右上角 `+` → `New repository`
-   - 仓库名称填写 `class-homework`（或你喜欢的名字）
-   - 选择 `Public`
-   - 点击 `Create repository`
+## 修改作业内容（详细教程）
 
-2. **上传文件**
-   - 在仓库页面点击 `uploading an existing file`
-   - 将本项目所有文件拖入上传区域
-   - 点击 `Commit changes`
+### 第一步：找到文件
 
-3. **启用 GitHub Pages**
-   - 进入仓库 `Settings` → `Pages`
-   - Source 选择 `Deploy from a branch`
-   - Branch 选择 `main`，文件夹选择 `/ (root)`
-   - 点击 `Save`
-   - 等待 1-2 分钟，你的网站就上线了！
+在项目文件夹中找到 `script.js` 文件，用任意文本编辑器打开：
+- Windows: 用 VS Code、记事本、HBuilderX 等
+- Mac: 用 VS Code、TextEdit 等
+- 推荐使用 [VS Code](https://code.visualstudio.com/)（免费）
 
-### 方法二：使用 Git 命令
+### 第二步：理解数据结构
 
-```bash
-# 进入项目文件夹
-cd class-homework-site
+打开 `script.js`，找到第 9-38 行的作业数据：
 
-# 初始化 Git（如果还没有）
-git init
-
-# 添加所有文件
-git add .
-
-# 提交
-git commit -m "Initial commit"
-
-# 添加远程仓库（替换为你的仓库地址）
-git remote add origin https://github.com/你的用户名/class-homework.git
-
-# 推送
-git push -u origin main
+```javascript
+const homeworkData = {
+  homeworks: [
+    {
+      id: "hw001",           // 作业唯一ID，不能重复
+      subject: "学年论文",   // 科目名称
+      title: "2023级学年论文", // 作业标题
+      description: "作业的详细描述...", // 详细说明（支持换行）
+      publishDate: "2026-04-13",  // 发布日期（格式：年-月-日）
+      dueDate: "2026-04-27",      // 截止日期（格式：年-月-日）
+      status: "active"      // 状态：active=进行中，expired=已截止
+    },
+    // 更多作业...
+  ]
+};
 ```
 
-然后在 GitHub 仓库 Settings → Pages 中启用即可。
+### 第三步：添加新作业
 
-## 📁 文件结构
-
-```
-class-homework-site/
-├── index.html          # 主页面
-├── styles.css          # 样式表
-├── script.js           # 交互逻辑
-├── SPEC.md             # 设计规格文档
-└── README.md           # 使用说明
-```
-
-## 🎨 自定义修改
-
-### 修改班级信息
-
-编辑 `index.html` 和 `script.js` 中的班级名称：
-- `中文233` → 你的班级名称
-- `XXGCZW233` → 你想要的网站后缀
-
-### 添加作业
-
-编辑 `script.js` 中的 `homeworkData.homeworks` 数组，添加新作业：
+在 `homeworks: [` 和 `]` 之间添加新作业：
 
 ```javascript
 {
-  id: "hw009",
-  subject: "科目",
-  title: "作业标题",
-  description: "作业详细描述...",
+  id: "hw004",
+  subject: "语文",
+  title: "唐诗三百首背诵",
+  description: "1. 背诵《静夜思》《春晓》等五首唐诗\n2. 下周课堂抽查背诵",
   publishDate: "2026-04-14",
-  dueDate: "2026-04-21",
+  dueDate: "2026-04-20",
   status: "active"
 }
 ```
 
-### 修改颜色主题
+**注意**：
+- `id` 必须唯一，如 `hw001`、`hw002`、`hw003`...
+- 日期格式必须是 `YYYY-MM-DD`（年-月-日）
+- description 中的 `\n` 表示换行
 
-编辑 `styles.css` 中的 `:root` 变量：
+### 第四步：修改现有作业
 
-```css
-:root {
-  --primary: #1a3a4a;      /* 主色调 */
-  --accent: #c75555;        /* 强调色 */
-  --bg-primary: #faf8f5;    /* 背景色 */
-}
+直接编辑对应的作业内容即可。例如修改截止日期：
+
+```javascript
+// 把这个
+dueDate: "2026-04-27"
+
+// 改成这个
+dueDate: "2026-05-01"
 ```
 
-## 🛠️ 技术栈
+### 第五步：保存并推送
 
-- HTML5
-- CSS3 (CSS Variables, Flexbox, Grid)
-- Vanilla JavaScript (ES6+)
-- Google Fonts (Noto Serif SC, Noto Sans SC, Crimson Pro)
+1. 保存 `script.js` 文件
+2. 打开命令行，进入项目文件夹
+3. 执行以下命令：
 
-## 📝 许可证
+```bash
+git add .
+git commit -m "更新作业内容"
+git push
+```
 
-MIT License - 自由使用和修改
+4. 等待约 1-2 分钟，网站自动更新
 
 ---
 
-*Designed with ❤️ for 中文233*
+## 科目颜色说明
+
+每个科目有自己的颜色（在 `subjectColors` 中定义）：
+
+| 科目 | 颜色 |
+|------|------|
+| 语文 | 朱砂红 #c75555 |
+| 数学 | 竹青 #4a7c59 |
+| 英语 | 靛蓝 #5a7c9a |
+| 物理 | 紫藤 #7c5a7c |
+| 化学 | 土黄 #7c6a4a |
+| 历史 | 赭石 #6a5a4a |
+| 学年论文 | 棕褐 #8b5a2b |
+| 微格教学 | 深蓝 #2e5a8b |
+| 社会实践 | 紫色 #5a2e8b |
+
+如果需要添加新科目，需要在 `subjectColors` 中添加对应颜色。
+
+---
+
+## 文件结构说明
+
+```
+class-homework-site/
+├── index.html      # 页面结构（一般不需要修改）
+├── styles.css      # 样式设计（修改颜色、设计时动这里）
+├── script.js       # 作业数据和交互逻辑（修改内容主要在这里）
+├── SPEC.md         # 设计规格文档
+└── README.md       # 本说明文件
+```
+
+---
+
+## 常见问题
+
+### Q: 为什么网站没有更新？
+A: GitHub Pages 需要 1-2 分钟构建，请稍等后刷新浏览器缓存（Ctrl+F5）
+
+### Q: 可以添加图片或附件吗？
+A: 当前版本是纯静态网站，如需附件可以上传到网盘后在作业描述中放链接
+
+### Q: 怎么删除一个作业？
+A: 在 `script.js` 中删除对应的作业对象即可
+
+### Q: 截止日期过了会怎样？
+A: 作业卡片会显示灰色"已截止"标记，但仍会显示在列表中
+
+---
+
+## 部署信息
+
+- GitHub 仓库: https://github.com/Thatgfsj/class-homework
+- 网站地址: https://thatgfsj.github.io/class-homework/
+- 构建方式: GitHub Pages (Legacy)
+
+---
+
+*Designed with for 中文233*
