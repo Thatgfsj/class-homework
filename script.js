@@ -385,8 +385,9 @@ function closeModal() {
  * 初始化事件监听
  */
 function initEventListeners() {
-  // 筛选按钮
-  elements.filterButtons.addEventListener('click', (e) => {
+  // 筛选按钮（如果存在）
+  if (elements.filterButtons) {
+    elements.filterButtons.addEventListener('click', (e) => {
     const btn = e.target.closest('.filter-btn');
     if (!btn) return;
 
@@ -400,6 +401,7 @@ function initEventListeners() {
     currentFilter = btn.dataset.filter;
     filterHomeworks();
   });
+  }
 
   // 搜索输入
   elements.searchInput.addEventListener('input', (e) => {
