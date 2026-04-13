@@ -48,7 +48,7 @@ const homeworkData = {
       id: "hw005",
       subject: "雨课堂",
       title: "文学评论与写作雨课堂答题",
-      description: "无要求。\n\n注意：如需验证码，请联系老师获取。",
+      description: "无要求。",
       publishDate: "2026-04-13",
       dueDate: "2026-04-19",
       status: "active"
