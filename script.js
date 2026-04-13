@@ -34,6 +34,24 @@ const homeworkData = {
       publishDate: "2026-04-13",
       dueDate: "2026-05-10",
       status: "active"
+    },
+    {
+      id: "hw004",
+      subject: "雨课堂",
+      title: "民间文学雨课堂答题",
+      description: "作业以附件类型提交，不要直接复制粘贴文字。",
+      publishDate: "2026-04-13",
+      dueDate: "2026-04-19",
+      status: "active"
+    },
+    {
+      id: "hw005",
+      subject: "雨课堂",
+      title: "文学评论与写作雨课堂答题",
+      description: "无要求。\n\n注意：如需验证码，请联系老师获取。",
+      publishDate: "2026-04-13",
+      dueDate: "2026-04-19",
+      status: "active"
     }
   ]
 };
@@ -78,6 +96,10 @@ const subjectColors = {
   "社会实践": {
     color: "#5a2e8b",
     bg: "rgba(90, 46, 139, 0.1)"
+  },
+  "雨课堂": {
+    color: "#3a8b8b",
+    bg: "rgba(58, 139, 139, 0.1)"
   },
   "其他": {
     color: "#666666",
