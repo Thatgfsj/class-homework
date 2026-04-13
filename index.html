@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中文233作业公告板 | XXGCZW233</title>
+  <meta name="description" content="中文233班作业发布平台，方便同学们随时查看各科作业">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <svg class="logo-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 40C8 40 12 36 24 36C36 36 40 40 40 40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M24 8V36" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <path d="M16 14C16 14 20 18 24 18C28 18 32 14 32 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M14 22C14 22 18 26 24 26C30 26 34 22 34 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="24" cy="12" r="2" fill="currentColor"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-title">中文233</span>
+          <span class="logo-subtitle">作业公告板</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <span class="site-suffix">XXGCZW233</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-pattern"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-decoration left">
+        <svg viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 180C40 160 60 140 80 120C100 100 110 80 100 60C90 40 70 30 50 40C30 50 10 70 20 100C30 130 40 160 20 180Z" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+          <path d="M40 190C60 170 80 150 100 130" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+          <path d="M10 160C30 140 50 120 70 100" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+        </svg>
+      </div>
+      <div class="hero-text">
+        <h1 class="hero-title">作业公告板</h1>
+        <p class="hero-subtitle">
+          <span class="current-date" id="currentDate"></span>
+          <span class="divider">|</span>
+          <span class="current-weekday" id="currentWeekday"></span>
+        </p>
+        <p class="hero-welcome">欢迎来到中文233班作业发布平台</p>
+      </div>
+      <div class="hero-decoration right">
+        <svg viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 180C80 160 60 140 40 120C20 100 10 80 20 60C30 40 50 30 70 40C90 50 110 70 100 100C90 130 80 160 100 180Z" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+          <path d="M80 190C60 170 40 150 20 130" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+          <path d="M110 160C90 140 70 120 50 100" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter Bar -->
+  <section class="filter-section">
+    <div class="filter-container">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="搜索作业..." autocomplete="off">
+        <button class="search-clear" id="searchClear" aria-label="清除搜索">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="filter-buttons" id="filterButtons">
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="语文">语文</button>
+        <button class="filter-btn" data-filter="数学">数学</button>
+        <button class="filter-btn" data-filter="英语">英语</button>
+        <button class="filter-btn" data-filter="物理">物理</button>
+        <button class="filter-btn" data-filter="化学">化学</button>
+        <button class="filter-btn" data-filter="历史">历史</button>
+        <button class="filter-btn" data-filter="其他">其他</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Homework Grid -->
+  <main class="main-content">
+    <div class="homework-grid" id="homeworkGrid">
+      <!-- Homework cards will be injected here -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <svg class="empty-illustration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+        <path d="M70 90C70 90 85 80 100 80C115 80 130 90 130 90" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+        <circle cx="75" cy="110" r="5" fill="currentColor" opacity="0.3"/>
+        <circle cx="125" cy="110" r="5" fill="currentColor" opacity="0.3"/>
+        <path d="M80 140C80 140 90 150 100 150C110 150 120 140 120 140" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+        <path d="M60 70L65 60M140 70L135 60" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.2"/>
+      </svg>
+      <h3 class="empty-title">暂无作业</h3>
+      <p class="empty-text">当前没有符合筛选条件的作业</p>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" id="loadingState">
+      <div class="skeleton-grid">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <span class="footer-logo">中文233</span>
+          <span class="footer-tagline">作业公告板 · XXGCZW233</span>
+        </div>
+        <div class="footer-info">
+          <p>最后更新时间: <span id="lastUpdated"></span></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 中文233班 版权所有</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Homework Detail Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="homeworkModal">
+      <button class="modal-close" id="modalClose" aria-label="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <div class="modal-content" id="modalContent">
+        <!-- Modal content will be injected here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
