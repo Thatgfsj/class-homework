@@ -8,8 +8,114 @@
 
 const homeworkData = {
   homeworks: [
+  ]
+};
 
-  ];
+// ========================================
+// 科目颜色配置
+// ========================================
+
+const subjectColors = {
+  "语文": {
+    color: "#c75555",
+    bg: "rgba(199, 85, 85, 0.1)"
+  },
+  "数学": {
+    color: "#4a7c59",
+    bg: "rgba(74, 124, 89, 0.1)"
+  },
+  "英语": {
+    color: "#5a7c9a",
+    bg: "rgba(90, 124, 154, 0.1)"
+  },
+  "物理": {
+    color: "#7c5a7c",
+    bg: "rgba(124, 90, 124, 0.1)"
+  },
+  "化学": {
+    color: "#7c6a4a",
+    bg: "rgba(124, 106, 74, 0.1)"
+  },
+  "历史": {
+    color: "#6a5a4a",
+    bg: "rgba(106, 90, 74, 0.1)"
+  },
+  "学年论文": {
+    color: "#8b5a2b",
+    bg: "rgba(139, 90, 43, 0.1)"
+  },
+  "微格教学": {
+    color: "#2e5a8b",
+    bg: "rgba(46, 90, 139, 0.1)"
+  },
+  "社会实践": {
+    color: "#5a2e8b",
+    bg: "rgba(90, 46, 139, 0.1)"
+  },
+  "雨课堂": {
+    color: "#3a8b8b",
+    bg: "rgba(58, 139, 139, 0.1)"
+  },
+  "习教论": {
+    color: "#8b3a5a",
+    bg: "rgba(139, 58, 90, 0.1)"
+  },
+  "其他": {
+    color: "#666666",
+    bg: "rgba(102, 102, 102, 0.1)"
+  }
+};
+
+// ========================================
+// DOM 元素
+// ========================================
+
+const elements = {
+  currentDate: document.getElementById('currentDate'),
+  currentWeekday: document.getElementById('currentWeekday'),
+  searchInput: document.getElementById('searchInput'),
+  searchClear: document.getElementById('searchClear'),
+  filterButtons: document.getElementById('filterButtons'),
+  homeworkGrid: document.getElementById('homeworkGrid'),
+  emptyState: document.getElementById('emptyState'),
+  loadingState: document.getElementById('loadingState'),
+  modalOverlay: document.getElementById('modalOverlay'),
+  modal: document.getElementById('homeworkModal'),
+  modalContent: document.getElementById('modalContent'),
+  modalClose: document.getElementById('modalClose'),
+  lastUpdated: document.getElementById('lastUpdated')
+};
+
+// ========================================
+// 工具函数
+// ========================================
+
+/**
+ * 格式化日期
+ */
+function formatDate(dateStr) {
+  const date = new Date(dateStr);
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${month}月${day}日`;
+}
+
+/**
+ * 格式化完整日期
+ */
+function formatFullDate(dateStr) {
+  const date = new Date(dateStr);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${year}年${month}月${day}日`;
+}
+
+/**
+ * 获取星期几
+ */
+function getWeekday(dateStr) {
+  const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
   const date = new Date(dateStr);
   return weekdays[date.getDay()];
 }
@@ -238,9 +344,8 @@ function closeModal() {
  * 初始化事件监听
  */
 function initEventListeners() {
-  // 筛选按钮（如果存在）
-  if (elements.filterButtons) {
-    elements.filterButtons.addEventListener('click', (e) => {
+  // 筛选按钮
+  elements.filterButtons.addEventListener('click', (e) => {
     const btn = e.target.closest('.filter-btn');
     if (!btn) return;
 
@@ -254,7 +359,6 @@ function initEventListeners() {
     currentFilter = btn.dataset.filter;
     filterHomeworks();
   });
-  }
 
   // 搜索输入
   elements.searchInput.addEventListener('input', (e) => {
