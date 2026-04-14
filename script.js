@@ -9,25 +9,6 @@
 const homeworkData = {
   homeworks: [
     {
-      id: "hw004",
-      subject: "雨课堂",
-      title: "民间文学雨课堂答题",
-      description: "作业以附件类型提交，不要直接复制粘贴文字。",
-      publishDate: "2026-04-13",
-      dueDate: "2026-04-19",
-      status: "active"
-    }
-,
-    {
-      id: "hw005",
-      subject: "雨课堂",
-      title: "文学评论与写作雨课堂答题",
-      description: "无要求。\n\n注意：如需验证码，请联系老师获取。",
-      publishDate: "2026-04-13",
-      dueDate: "2026-04-19",
-      status: "active"
-,
-    {
       id: "hw006",
       subject: "习教论",
       title: "习近平总书记关于教育重要论述研究 期末论文",
@@ -35,37 +16,8 @@ const homeworkData = {
       publishDate: "2026-04-14",
       dueDate: "2026-04-20",
       status: "active"
-    }    }
-,
-    {
-      id: "hw001",
-      subject: "学年论文",
-      title: "2023级学年论文",
-      description: "每个班的负责老师可安排学生自拟题目，老师审核，仿照毕业论文模式，让所带班级学生每人写一篇论文。\n\n要求：\n1. 仿照毕业论文模式撰写\n2. 字数在5000字左右\n3. 可打印提交\n4. 需经老师审核题目",
-      publishDate: "2026-04-13",
-      dueDate: "2026-05-10",
-      status: "active"
     }
-,
-    {
-      id: "hw002",
-      subject: "微格教学",
-      title: "2023级微格教学实践",
-      description: "实践时间：第10周\n\n需完成以下内容：\n1. 一篇完整的教案（高中初中语文任选一篇，电子手写皆可）\n2. 一篇完整的PPT\n3. 录课视频约8-10分钟（模拟真实课堂，有板书）\n4. 每组讨论总结，一组交一份（可打印）\n5. 每位同学交一份实践总结（论文纸手写版）",
-      publishDate: "2026-04-13",
-      dueDate: "2026-05-10",
-      status: "active"
-    }
-,
-    {
-      id: "hw003",
-      subject: "社会实践",
-      title: "中国民俗调查",
-      description: "民俗是一个民族或地区世代相传的文化，包括饮食、节日、礼仪、游艺、物质和口语语言等诸多方面。\n\n民俗的功能：\n- 培养爱国主义情感\n- 规范道德观念\n- 维护社会和谐\n- 培育审美意识\n\n要求：\n1. 选择某地区的一种民俗展开深入调查\n2. 根据调查内容拍成视频\n3. 配上字幕，有讲解，有录音\n4. 可分组进行，一个班大概5-6个视频",
-      publishDate: "2026-04-13",
-      dueDate: "2026-05-10",
-      status: "active"
-    }
+  ]
   ]
 };
 
