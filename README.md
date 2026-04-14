@@ -148,6 +148,23 @@ A: 作业卡片会显示灰色"已截止"标记，但仍会显示在列表中
 
 ---
 
+
+
+### ⚠️ 添加作业时注意中文引号转义
+在 `description` 字段中，如果中文文本包含引号（如"坚持把立德树人作为根本任务"），必须将内部引号转义为 \" 否则会导致 JavaScript 语法错误。
+
+正确示例：
+```javascript
+description: "考核题目：xxx\"坚持把立德树人作为根本任务\"xxx"
+```
+
+错误示例（会导致网站崩溃）：
+```javascript
+description: "考核题目：xxx"坚持把立德树人作为根本任务"xxx"
+```
+
+---
+
 ## 部署信息
 
 - GitHub 仓库: https://github.com/Thatgfsj/class-homework
