@@ -316,7 +316,7 @@ function renderModal(homework) {
         <div class="modal-meta-item">
           <span class="modal-meta-label">状态</span>
           <span class="modal-meta-value" style="color: ${isExpired ? 'var(--text-muted)' : countdown.urgent ? 'var(--accent)' : 'var(--subject-math)'};">
-            ${isExpired ? '已截止' : countdown.text}
+            ${isExpired ? '已截止' : (countdown.value !== null ? countdown.value + countdown.text : countdown.text)}
           </span>
         </div>
       </div>
