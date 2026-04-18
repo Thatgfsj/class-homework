@@ -293,6 +293,13 @@ body {
   gap: var(--space-md);
 }
 
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
 .search-box {
   position: relative;
   max-width: 400px;
@@ -402,6 +409,43 @@ body {
   background: var(--primary-light);
   border-color: var(--primary-light);
   color: white;
+}
+
+/* Show Expired Button */
+.show-expired-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.show-expired-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.show-expired-btn:hover {
+  background: var(--bg-secondary);
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.show-expired-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.show-expired-btn.active:hover {
+  background: var(--accent-light);
+  border-color: var(--accent-light);
 }
 
 /* ========================================

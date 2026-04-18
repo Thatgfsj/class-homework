@@ -138,6 +138,7 @@ const elements = {
   searchInput: document.getElementById('searchInput'),
   searchClear: document.getElementById('searchClear'),
   filterButtons: document.getElementById('filterButtons'),
+  showExpiredBtn: document.getElementById('showExpiredBtn'),
   homeworkGrid: document.getElementById('homeworkGrid'),
   emptyState: document.getElementById('emptyState'),
   loadingState: document.getElementById('loadingState'),
@@ -344,6 +345,7 @@ function renderModal(homework) {
 let currentFilter = 'all';
 let searchQuery = '';
 let debounceTimer = null;
+let showExpired = false; // 是否显示已过期作业
 
 /**
  * 筛选作业
@@ -353,7 +355,9 @@ function filterHomeworks() {
 
   // 自动隐藏已过期的作业（截止日期早于今天）
   const today = getTodayString();
-  filtered = filtered.filter(hw => hw.dueDate >= today);
+  if (!showExpired) {
+    filtered = filtered.filter(hw => hw.dueDate >= today);
+  }
 
   // 按截止日期排序（最近的在前）
   filtered.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
@@ -452,6 +456,22 @@ function initEventListeners() {
     elements.searchInput.value = '';
     searchQuery = '';
     elements.searchClear.classList.remove('visible');
+    filterHomeworks();
+  });
+
+  // 查看已截止按钮
+  elements.showExpiredBtn.addEventListener('click', () => {
+    showExpired = !showExpired;
+    elements.showExpiredBtn.classList.toggle('active', showExpired);
+    elements.showExpiredBtn.innerHTML = showExpired
+      ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+           <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+         </svg>
+         隐藏已截止`
+      : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+           <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+         </svg>
+         查看已截止`;
     filterHomeworks();
   });
 

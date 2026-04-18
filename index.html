@@ -72,16 +72,24 @@
   <!-- Filter Bar -->
   <section class="filter-section">
     <div class="filter-container">
-      <div class="search-box">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="7"/>
-          <path d="M21 21l-4.35-4.35"/>
-        </svg>
-        <input type="text" id="searchInput" placeholder="搜索作业..." autocomplete="off">
-        <button class="search-clear" id="searchClear" aria-label="清除搜索">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 6L6 18M6 6l12 12"/>
+      <div class="search-row">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="M21 21l-4.35-4.35"/>
           </svg>
+          <input type="text" id="searchInput" placeholder="搜索作业..." autocomplete="off">
+          <button class="search-clear" id="searchClear" aria-label="清除搜索">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <button class="show-expired-btn" id="showExpiredBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          查看已截止
         </button>
       </div>
       <div class="filter-buttons" id="filterButtons">
