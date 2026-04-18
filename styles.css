@@ -293,13 +293,6 @@ body {
   gap: var(--space-md);
 }
 
-.search-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  flex-wrap: wrap;
-}
-
 .search-box {
   position: relative;
   max-width: 400px;
@@ -412,28 +405,37 @@ body {
 }
 
 /* Show Expired Button */
+.show-expired-container {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px dashed var(--border);
+}
+
 .show-expired-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-secondary);
+  gap: 8px;
+  padding: 12px 24px;
+  background: transparent;
+  border: 1px solid var(--text-muted);
+  border-radius: 24px;
+  color: var(--text-muted);
   font-size: 14px;
+  font-family: inherit;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .show-expired-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 .show-expired-btn:hover {
   background: var(--bg-secondary);
-  border-color: var(--text-muted);
+  border-color: var(--text-secondary);
   color: var(--text-primary);
 }
 
@@ -444,8 +446,8 @@ body {
 }
 
 .show-expired-btn.active:hover {
-  background: var(--accent-light);
-  border-color: var(--accent-light);
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
 }
 
 /* ========================================

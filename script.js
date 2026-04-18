@@ -506,7 +506,7 @@ function init() {
   initEventListeners();
 
   // 初始渲染
-  renderHomeworks(homeworkData.homeworks);
+  filterHomeworks();
 }
 
 // DOM 加载完成后初始化
