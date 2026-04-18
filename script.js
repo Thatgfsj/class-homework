@@ -188,8 +188,11 @@ function getWeekday(dateStr) {
  */
 function getDaysUntilDue(dueDateStr) {
   const now = new Date();
-  const due = new Date(dueDateStr);
-  const diff = due - now;
+  // 将日期字符串解析为本地日期的开始（00:00:00）
+  const due = new Date(dueDateStr + 'T00:00:00');
+  // 设置为当天结束前一刻（23:59:59）以便今天截止的作业显示为0天
+  const dueEnd = new Date(due.getFullYear(), due.getMonth(), due.getDate(), 23, 59, 59);
+  const diff = dueEnd - now;
   const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
   return days;
 }
@@ -239,8 +242,9 @@ function renderDateInfo() {
  */
 function createHomeworkCard(homework, index) {
   const subjectStyle = subjectColors[homework.subject] || subjectColors["其他"];
-  const countdown = getCountdownText(getDaysUntilDue(homework.dueDate));
-  const isExpired = homework.status === 'expired' || getDaysUntilDue(homework.dueDate) < 0;
+  const daysUntilDue = getDaysUntilDue(homework.dueDate);
+  const countdown = getCountdownText(daysUntilDue);
+  const isExpired = homework.status === 'expired' || daysUntilDue < 0;
 
   return `
     <article class="homework-card ${isExpired ? 'expired' : ''}"
@@ -356,11 +360,18 @@ function filterHomeworks() {
   // 自动隐藏已过期的作业（截止日期早于今天）
   const today = getTodayString();
   if (!showExpired) {
-    filtered = filtered.filter(hw => hw.dueDate >= today);
+    filtered = filtered.filter(hw => {
+      // 截止日期大于等于今天才算未过期
+      return hw.dueDate >= today;
+    });
   }
 
-  // 按截止日期排序（最近的在前）
-  filtered.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+  // 按截止日期排序（最近的在前）- 使用本地日期比较
+  filtered.sort((a, b) => {
+    const dateA = new Date(a.dueDate + 'T00:00:00');
+    const dateB = new Date(b.dueDate + 'T00:00:00');
+    return dateA - dateB;
+  });
 
   // 按科目筛选
   if (currentFilter !== 'all') {
