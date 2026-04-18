@@ -357,13 +357,14 @@ let showExpired = false; // 是否显示已过期作业
 function filterHomeworks() {
   let filtered = [...homeworkData.homeworks];
 
-  // 自动隐藏已过期的作业（截止日期早于今天）
+  // 按截止日期过滤
   const today = getTodayString();
-  if (!showExpired) {
-    filtered = filtered.filter(hw => {
-      // 截止日期大于等于今天才算未过期
-      return hw.dueDate >= today;
-    });
+  if (showExpired) {
+    // 只显示已截止的作业
+    filtered = filtered.filter(hw => hw.dueDate < today);
+  } else {
+    // 只显示未截止的作业
+    filtered = filtered.filter(hw => hw.dueDate >= today);
   }
 
   // 按截止日期排序（最近的在前）- 使用本地日期比较
