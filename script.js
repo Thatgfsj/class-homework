@@ -351,6 +351,13 @@ let debounceTimer = null;
 function filterHomeworks() {
   let filtered = [...homeworkData.homeworks];
 
+  // 自动隐藏已过期的作业（截止日期早于今天）
+  const today = getTodayString();
+  filtered = filtered.filter(hw => hw.dueDate >= today);
+
+  // 按截止日期排序（最近的在前）
+  filtered.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
   // 按科目筛选
   if (currentFilter !== 'all') {
     filtered = filtered.filter(hw => hw.subject === currentFilter);
