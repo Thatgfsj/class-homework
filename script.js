@@ -50,7 +50,7 @@ const homeworkData = {
       title: "应用语言学课堂作业",
       description: "❷课堂作业\n\n内容：\n- 老师下发的打印版课堂作业\n\n提交要求：\n1. 完成后直接交给我\n2. 注意书写规范\n\n⚠️第八周交",
       publishDate: "2026-04-18",
-      dueDate: "2026-04-25",
+      dueDate: "2026-04-22",
       status: "active"
     },
     {
@@ -59,7 +59,7 @@ const homeworkData = {
       title: "应用语言学读书心得",
       description: "❸读书心得\n\n写作步骤：\n1. 在知网上参考别人的论文（选择与应用语言学相关的论文）\n2. 将参考论文打印出来\n3. 用学校稿纸手写一篇心得\n\n心得格式要求：\n① 心得稿纸第一面留白，只写个人信息：学校、学院、专业、班级、姓名、学号\n② 心得与打印的原文订在一起交，原文在上\n\n提交信息：\n⚠️第八周交",
       publishDate: "2026-04-18",
-      dueDate: "2026-04-25",
+      dueDate: "2026-04-22",
       status: "active"
     },
     {
