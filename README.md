@@ -29,16 +29,24 @@
 - Mac: 用 VS Code、TextEdit 等
 - 推荐使用 [VS Code](https://code.visualstudio.com/)（免费）
 
-### 第二步：理解数据结构
+### 第一步：找到文件
 
-打开 `script.js`，找到第 9-38 行的作业数据：
+在项目文件夹中找到 `script.js` 文件，用任意文本编辑器打开：
+- Windows: 用 VS Code、记事本、HBuilderX 等
+- Mac: 用 VS Code、TextEdit 等
+- 推荐使用 [VS Code](https://code.visualstudio.com/)（免费）
 
+### 第二步：理解数据结构和分类
+
+打开 `script.js`，找到作业数据和分类配置：
+
+**作业数据** (`homeworks` 数组)：
 ```javascript
 const homeworkData = {
   homeworks: [
     {
       id: "hw001",           // 作业唯一ID，不能重复
-      subject: "学年论文",   // 科目名称
+      subject: "论文写作",   // 分类名称
       title: "2023级学年论文", // 作业标题
       description: "作业的详细描述...", // 详细说明（支持换行）
       publishDate: "2026-04-13",  // 发布日期（格式：年-月-日）
@@ -50,16 +58,28 @@ const homeworkData = {
 };
 ```
 
-### 第三步：添加新作业
+**分类颜色** (`subjectColors` 对象)：
+```javascript
+const subjectColors = {
+  "雨课堂": { color: "#3a8b8b", bg: "rgba(58, 139, 139, 0.1)" },
+  "普通作业": { color: "#8b5a2b", bg: "rgba(139, 90, 43, 0.1)" },
+  "论文写作": { color: "#2e5a8b", bg: "rgba(46, 90, 139, 0.1)" },
+  "实践要求": { color: "#5a2e8b", bg: "rgba(90, 46, 139, 0.1)" }
+};
+```
+
+如需添加新分类，需要同时在 `subjectColors` 中添加颜色配置。
+
+### 第三步：添加或修改作业
 
 在 `homeworks: [` 和 `]` 之间添加新作业：
 
 ```javascript
 {
   id: "hw004",
-  subject: "语文",
-  title: "唐诗三百首背诵",
-  description: "1. 背诵《静夜思》《春晓》等五首唐诗\n2. 下周课堂抽查背诵",
+  subject: "普通作业",
+  title: "课堂笔记整理",
+  description: "整理本周课堂笔记\n下周课堂检查",
   publishDate: "2026-04-14",
   dueDate: "2026-04-20",
   status: "active"
@@ -68,22 +88,11 @@ const homeworkData = {
 
 **注意**：
 - `id` 必须唯一，如 `hw001`、`hw002`、`hw003`...
+- `subject` 必须是已定义的分类之一
 - 日期格式必须是 `YYYY-MM-DD`（年-月-日）
 - description 中的 `\n` 表示换行
 
-### 第四步：修改现有作业
-
-直接编辑对应的作业内容即可。例如修改截止日期：
-
-```javascript
-// 把这个
-dueDate: "2026-04-27"
-
-// 改成这个
-dueDate: "2026-05-01"
-```
-
-### 第五步：保存并推送
+### 第四步：保存并推送
 
 1. 保存 `script.js` 文件
 2. 打开命令行，进入项目文件夹
@@ -99,18 +108,34 @@ git push
 
 ---
 
-## 科目颜色说明
+## 修改分类或样式
 
-每个科目有自己的颜色（在 `subjectColors` 中定义）：
+### 添加新分类
 
-| 科目 | 颜色 |
-|------|------|
-| 应用语言学 | 棕褐 #8b5a2b |
-| 学年论文 | 棕褐 #8b5a2b |
-| 微格教学 | 深蓝 #2e5a8b |
-| 社会实践 | 紫色 #5a2e8b |
-| 雨课堂 | 青色 #3a8b8b |
-| 习教论 | 玫红 #8b3a5a |
+1. 在 `subjectColors` 对象中添加颜色配置
+2. 在 `index.html` 的 filter-buttons 中添加对应的按钮
+3. 将作业的 `subject` 字段设为新分类名
+
+### 修改现有分类
+
+直接编辑 `subjectColors` 中的颜色值，或修改作业的 `subject` 字段即可。
+
+---
+
+## 作业分类
+
+当前分类：
+- 雨课堂
+- 普通作业
+- 论文写作
+- 实践要求
+
+| 分类 | 颜色 | 说明 |
+|------|------|------|
+| 雨课堂 | 青色 #3a8b8b | 雨课堂答题类作业 |
+| 普通作业 | 棕褐 #8b5a2b | 课堂作业、读书心得等 |
+| 论文写作 | 深蓝 #2e5a8b | 结课论文、学年论文等 |
+| 实践要求 | 紫色 #5a2e8b | 实践类、调查类作业 |
 
 如果需要添加新科目，需要在 `subjectColors` 中添加对应颜色。
 
