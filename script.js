@@ -343,6 +343,28 @@ function renderModal(homework) {
        </button>`
     : '';
 
+  // Build description HTML - show intro, then AI prompt in code block
+  const parts = homework.description.split('AI 参考提示词');
+  let descHTML = '';
+  if (parts.length > 1) {
+    // Has AI prompt - show intro then code block
+    const intro = parts[0].split('\n').map(p => `<p>${p}</p>`).join('');
+    descHTML = intro + `
+      <div class="prompt-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+        AI 参考提示词
+      </div>
+      <pre class="prompt-code"><code>${aiPromptText.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
+    `;
+  } else {
+    // No AI prompt - just normal paragraphs
+    descHTML = homework.description.split('\n').map(p => `<p>${p}</p>`).join('');
+  }
+
   elements.modalContent.innerHTML = `
     <div class="modal-accent" style="background: ${subjectStyle.color};"></div>
     <div class="modal-header">
@@ -369,7 +391,7 @@ function renderModal(homework) {
       ${copyBtnHTML}
     </div>
     <div class="modal-description">
-      ${homework.description.split('\n').map(p => `<p>${p}</p>`).join('')}
+      ${descHTML}
     </div>
   `;
 
