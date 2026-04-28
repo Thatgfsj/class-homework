@@ -1016,3 +1016,74 @@ body {
     border-radius: var(--radius-sm);
   }
 }
+
+
+/* AI Prompt Code Block */
+.prompt-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 16px 0 8px 0;
+  font-weight: 500;
+}
+
+.prompt-label svg {
+  color: var(--accent);
+}
+
+.prompt-code {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 0 0 16px 0;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.prompt-code code {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  color: #24292e;
+}
+
+/* Copy Button */
+.copy-prompt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 8px 14px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-prompt-btn:hover {
+  background: #06a39d;
+  transform: translateY(-1px);
+}
+
+.copy-prompt-btn:active {
+  transform: translateY(0);
+}
+
+.copy-prompt-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Toast animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
