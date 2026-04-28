@@ -324,8 +324,24 @@ function renderModal(homework) {
   const countdown = getCountdownText(getDaysUntilDue(homework.dueDate));
   const isExpired = homework.status === 'expired' || getDaysUntilDue(homework.dueDate) < 0;
 
+  // Check if description has AI prompt (after --- divider)
+  const hasAIPrompt = homework.description.includes('AI 参考提示词');
+  const aiPromptText = hasAIPrompt
+    ? homework.description.split('AI 参考提示词')[1].replace(/^[:：]\n?/, '').trim()
+    : '';
+
   elements.modal.style.setProperty('--subject-color', subjectStyle.color);
   elements.modal.style.setProperty('--subject-bg', subjectStyle.bg);
+
+  const copyBtnHTML = hasAIPrompt
+    ? `<button class="copy-prompt-btn" onclick="copyAIPrompt()">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+           <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+         </svg>
+         复制提示词
+       </button>`
+    : '';
 
   elements.modalContent.innerHTML = `
     <div class="modal-accent" style="background: ${subjectStyle.color};"></div>
@@ -350,11 +366,64 @@ function renderModal(homework) {
           </span>
         </div>
       </div>
+      ${copyBtnHTML}
     </div>
     <div class="modal-description">
       ${homework.description.split('\n').map(p => `<p>${p}</p>`).join('')}
     </div>
   `;
+
+  // Store AI prompt for copy function
+  if (hasAIPrompt) {
+    window._currentAIPrompt = aiPromptText;
+  }
+}
+
+/**
+ * 复制AI提示词到剪贴板
+ */
+function copyAIPrompt() {
+  const prompt = window._currentAIPrompt || '';
+  if (!prompt) return;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(prompt).then(() => {
+      showCopyToast('已复制到剪贴板');
+    }).catch(() => {
+      fallbackCopyText(prompt);
+    });
+  } else {
+    fallbackCopyText(prompt);
+  }
+}
+
+function fallbackCopyText(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  try {
+    document.execCommand('copy');
+    showCopyToast('已复制到剪贴板');
+  } catch(e) {
+    showCopyToast('复制失败，请手动选择复制');
+  }
+  document.body.removeChild(textarea);
+}
+
+function showCopyToast(message) {
+  // Remove existing toast
+  const existing = document.querySelector('.copy-toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = 'copy-toast';
+  toast.textContent = message;
+  toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 20px;border-radius:20px;font-size:14px;z-index:10000;animation:fadeIn 0.3s';
+  document.body.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 2000);
 }
 
 // ========================================
