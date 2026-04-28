@@ -1020,43 +1020,33 @@ body {
 
 /* AI Prompt Code Block */
 .prompt-label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin: 16px 0 8px 0;
-  font-weight: 500;
-}
-
-.prompt-label svg {
-  color: var(--accent);
+  display: none;
 }
 
 .prompt-code {
-  background: #f6f8fa;
-  border: 1px solid #e1e4e8;
+  background: #1e1e1e;
+  border: 1px solid #3c3c3c;
   border-radius: 6px;
   padding: 0;
   margin: 0 0 16px 0;
   overflow: hidden;
-  position: relative;
 }
 
 .prompt-header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 6px 10px;
-  background: #e1e4e8;
-  border-bottom: 1px solid #d1d5da;
+  padding: 0;
+  background: #2d2d2d;
+  border-bottom: 1px solid #3c3c3c;
+  height: 32px;
 }
 
 .prompt-code code {
   display: block;
   padding: 12px 16px;
   font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', Consolas, 'Courier New', monospace;
-  color: #24292e;
+  color: #d4d4d4;
   font-size: 13px;
   line-height: 1.5;
   white-space: pre-wrap;
@@ -1064,15 +1054,16 @@ body {
   overflow-x: auto;
 }
 
-/* Copy Button */
+/* Copy Button - dark theme */
 .copy-prompt-btn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  margin-right: 8px;
   padding: 4px 10px;
-  background: #fff;
-  color: #24292e;
-  border: 1px solid #d1d5da;
+  background: #3c3c3c;
+  color: #d4d4d4;
+  border: 1px solid #555;
   border-radius: 4px;
   font-size: 12px;
   font-weight: 500;
@@ -1081,12 +1072,12 @@ body {
 }
 
 .copy-prompt-btn:hover {
-  background: #f3f4f6;
-  border-color: #c9d0d7;
+  background: #555;
+  border-color: #666;
 }
 
 .copy-prompt-btn:active {
-  background: #e8eaed;
+  background: #444;
 }
 
 .copy-prompt-btn svg {
