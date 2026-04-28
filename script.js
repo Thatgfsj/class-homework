@@ -333,22 +333,21 @@ function renderModal(homework) {
   elements.modal.style.setProperty('--subject-color', subjectStyle.color);
   elements.modal.style.setProperty('--subject-bg', subjectStyle.bg);
 
-  const copyBtnHTML = hasAIPrompt
-    ? `<button class="copy-prompt-btn" onclick="copyAIPrompt()">
-         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-           <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-         </svg>
-         复制提示词
-       </button>`
-    : '';
+  const copyBtnHTML = ''; // copy button now inside code block
 
   // Build description HTML - show intro, then AI prompt in code block
   const parts = homework.description.split('AI 参考提示词');
   let descHTML = '';
   if (parts.length > 1) {
-    // Has AI prompt - show intro then code block
+    // Has AI prompt - show intro then code block with copy button inside
     const intro = parts[0].split('\n').map(p => `<p>${p}</p>`).join('');
+    const copyBtn = `<button class="copy-prompt-btn" onclick="copyAIPrompt()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      复制
+    </button>`;
     descHTML = intro + `
       <div class="prompt-label">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
@@ -358,7 +357,7 @@ function renderModal(homework) {
         </svg>
         AI 参考提示词
       </div>
-      <pre class="prompt-code"><code>${aiPromptText.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
+      <pre class="prompt-code"><div class="prompt-header">${copyBtn}</div><code>${aiPromptText.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
     `;
   } else {
     // No AI prompt - just normal paragraphs
