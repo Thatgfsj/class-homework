@@ -1054,35 +1054,36 @@ body {
   overflow-x: auto;
 }
 
-/* Copy Button - dark theme */
+/* Copy Button - subtle dark theme */
 .copy-prompt-btn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   margin-right: 8px;
-  padding: 4px 10px;
-  background: #3c3c3c;
-  color: #d4d4d4;
-  border: 1px solid #555;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 500;
+  padding: 3px 8px;
+  background: transparent;
+  color: #888;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 400;
   cursor: pointer;
   transition: all 0.15s;
 }
 
 .copy-prompt-btn:hover {
-  background: #555;
-  border-color: #666;
+  color: #ccc;
+  background: #404040;
+  border-color: #555;
 }
 
 .copy-prompt-btn:active {
-  background: #444;
+  background: #383838;
 }
 
 .copy-prompt-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
 }
 
 /* Toast animation */
