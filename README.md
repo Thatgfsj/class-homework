@@ -196,3 +196,37 @@ description: "考核题目：xxx"坚持把立德树人作为根本任务"xxx"
 ---
 
 *Designed with for 中文233*
+
+
+---
+
+## 常见问题排查
+
+### 1. JavaScript 语法错误导致页面空白
+
+**问题表现：** GitHub Actions 构建成功，但页面显示空白或作业列表不加载。
+
+**原因：** script.js 中存在 JavaScript 语法错误。常见原因：
+
+- 在 description 字符串中使用了 **（Markdown 粗体语法），JavaScript 会将其解析为指数运算符，导致 Unexpected number 错误
+- 在字符串中使用了未转义的双引号 "，导致字符串提前终止
+
+**排查方法：**
+
+```bash
+node --check script.js
+```
+
+**解决方法：** 如果提交后页面空白，执行以下步骤：
+1. 登录 GitHub，进入仓库
+2. 找到最后一次提交，查看 script.js 的变更
+3. 检查是否有 ** 或其他可能在 JS 字符串中引起问题的字符
+4. 修复后重新提交，或回滚到上一个正常版本
+
+### 2. GitHub Pages 缓存导致更新不生效
+
+**问题表现：** 已经推送了新代码，但页面显示的还是旧内容。
+
+**解决方法：**
+- 强制刷新浏览器：Ctrl + Shift + R（Windows）或 Cmd + Shift + R（Mac）
+- 清除浏览器缓存后重试
