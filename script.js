@@ -108,6 +108,15 @@ const homeworkData = {
       publishDate: "2026-04-13",
       dueDate: "2026-05-10",
       status: "active"
+    },
+    {
+      id: "hw012",
+      subject: "普通作业",
+      title: "大学生就业创业指导简历制作",
+      description: "弄一份自己的用于求职的简历，电子版。\n\n截止时间：下周三（5月13日）",
+      publishDate: "2026-05-06",
+      dueDate: "2026-05-13",
+      status: "active"
     }
   ]
 
