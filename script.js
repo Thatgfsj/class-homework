@@ -79,7 +79,7 @@ const homeworkData = {
       title: "2023级学年论文",
       description: "每个班的负责老师可安排学生自拟题目，老师审核，仿照毕业论文模式，让所带班级学生每人写一篇论文。\n\n要求：\n1. 仿照毕业论文模式撰写\n2. 字数在5000字左右\n3. 可打印提交\n4. 需经老师审核题目\n5. 下载模板：<a href='./files/thesis-template.doc' download>点击下载毕业论文模板</a>",
       publishDate: "2026-04-13",
-      dueDate: "2026-05-10",
+      dueDate: "2026-05-17",
       status: "active"
     },
     {
@@ -106,7 +106,7 @@ const homeworkData = {
       title: "中国民俗调查",
       description: "民俗是一个民族或地区世代相传的文化，包括饮食、节日、礼仪、游艺、物质和口语语言等诸多方面。\n\n民俗的功能：\n- 培养爱国主义情感\n- 规范道德观念\n- 维护社会和谐\n- 培育审美意识\n\n要求：\n1. 选择某地区的一种民俗展开深入调查\n2. 根据调查内容拍成视频\n3. 配上字幕，有讲解，有录音\n4. 可分组进行，一个班大概5-6个视频",
       publishDate: "2026-04-13",
-      dueDate: "2026-05-10",
+      dueDate: "2026-05-24",
       status: "active"
     },
     {
