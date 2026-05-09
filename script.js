@@ -75,7 +75,7 @@ const homeworkData = {
 ,
     {
       id: "hw001",
-      subject: "论文写作",
+      subject: "实践要求",
       title: "2023级学年论文",
       description: "每个班的负责老师可安排学生自拟题目，老师审核，仿照毕业论文模式，让所带班级学生每人写一篇论文。\n\n要求：\n1. 仿照毕业论文模式撰写\n2. 字数在5000字左右\n3. 可打印提交\n4. 需经老师审核题目\n5. 下载模板：<a href='./files/thesis-template.doc' download>点击下载毕业论文模板</a>",
       publishDate: "2026-04-13",
