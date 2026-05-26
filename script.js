@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 中文233班作业公告板 - 交互逻辑
  */
 
@@ -666,3 +666,4 @@ function init() {
 
 // DOM 加载完成后初始化
 document.addEventListener('DOMContentLoaded', init);
+
