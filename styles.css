@@ -487,8 +487,8 @@ body {
 }
 
 .homework-card.expired {
-  border: 2px dashed var(--border);
-  background: rgba(250, 248, 245, 0.6);
+  border: 2px dashed var(--accent);
+  background: rgba(199, 85, 85, 0.05);
 }
 
 .homework-card.expired:hover {
@@ -497,6 +497,10 @@ body {
 }
 
 .homework-card.expired .card-description {
+  color: var(--text-muted);
+}
+
+.homework-card.expired .card-title {
   color: var(--text-muted);
 }
 
