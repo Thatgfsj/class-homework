@@ -833,15 +833,24 @@ body {
 
 /* AI Prompt Code Block */
 .ai-prompt-section {
+  position: relative;
   margin-top: var(--space-lg);
   border-radius: 8px;
   overflow: hidden;
+}
+
+.ai-prompt-section .copy-prompt-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
 }
 
 .ai-prompt-text {
   background: #1e1e1e;
   color: #d4d4d4;
   padding: var(--space-lg);
+  padding-top: 50px;
   border-radius: 8px;
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
   font-size: 0.875rem;
