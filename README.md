@@ -29,13 +29,6 @@
 - Mac: 用 VS Code、TextEdit 等
 - 推荐使用 [VS Code](https://code.visualstudio.com/)（免费）
 
-### 第一步：找到文件
-
-在项目文件夹中找到 `script.js` 文件，用任意文本编辑器打开：
-- Windows: 用 VS Code、记事本、HBuilderX 等
-- Mac: 用 VS Code、TextEdit 等
-- 推荐使用 [VS Code](https://code.visualstudio.com/)（免费）
-
 ### 第二步：理解数据结构和分类
 
 打开 `script.js`，找到作业数据和分类配置：
@@ -197,6 +190,88 @@ description: "考核题目：xxx"坚持把立德树人作为根本任务"xxx"
 
 *Designed with for 中文233*
 
+
+---
+
+## ⚠️ 常见错误汇总（修改前必读）
+
+### 错误一：换行符格式错误（最常见！）
+
+**问题描述**：网站打开后看不到作业列表，或者切换分类后才显示。
+
+**原因**：`description` 字段中的换行必须是转义序列 `\n`，不能是实际换行符，也不能是 `\\n`。
+
+| 格式 | JavaScript 解释 | 结果 |
+|------|----------------|------|
+| `\n` | 换行字符 | ✅ 正确 |
+| `\\n` | 反斜杠 + n（两个字符） | ❌ 显示为 `\n` 文本 |
+| 实际换行符 | 导致 JS 语法错误 | ❌ 网站崩溃 |
+
+**正确写法（所有内容在一行）：**
+```javascript
+description: "第一行内容\n第二行内容\n第三行内容"
+```
+
+**错误写法（实际换行）：**
+```javascript
+description: "第一行内容
+第二行内容"
+```
+
+**错误写法（双反斜杠）：**
+```javascript
+description: "第一行内容\\n第二行内容"  // 会显示为 \n 文本
+```
+
+---
+
+### 错误二：中文引号未转义
+
+**问题**：description 中使用中文引号 `""` 而非转义的 `\"`
+
+**正确写法：**
+```javascript
+description: "引用文字：\"坚持把立德树人作为根本任务\"，这是重要的论述。"
+```
+
+**错误写法：**
+```javascript
+description: "引用文字："坚持把立德树人作为根本任务"，这是重要的论述。"  // JS 字符串在第一个 " 处终止
+```
+
+---
+
+### 错误三：Markdown 特殊字符
+
+**问题**：在 description 中使用 `**`（Markdown 粗体）等会被 JavaScript 解析为运算符的字符。
+
+**危险字符**：`**` `++` `--` `**=` 等
+
+**建议**：尽量使用中文标点或普通括号代替 Markdown 格式。
+
+---
+
+### 错误四：Windows 换行符（CRLF）问题
+
+**问题**：在 Windows 记事本中编辑时，行尾可能包含 `\r\n`，在 template literal 中可能引发问题。
+
+**解决**：使用 VS Code 等编辑器，确保文件使用 LF（Unix 换行符）保存。
+
+---
+
+## ✅ 修改前自检清单
+
+修改 `script.js` 后，在推送前执行以下检查：
+
+```bash
+# 1. 验证 JavaScript 语法
+node --check script.js
+
+# 2. 验证所有 description 换行正确（替换 \\n 为 \n）
+# 运行项目根目录下的修复脚本，或手动检查
+```
+
+**如果 `node --check` 报错**，必须修复后再推送，否则网站会崩溃！
 
 ---
 
