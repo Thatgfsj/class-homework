@@ -359,6 +359,30 @@ function bindCardEvents() {
   });
 }
 
+function copyAIPrompt() {
+  const pre = document.querySelector('.ai-prompt-text');
+  if (pre) {
+    navigator.clipboard.writeText(pre.textContent).then(() => {
+      showToast('已复制到剪贴板');
+    }).catch(() => {
+      showToast('复制失败，请手动选择复制');
+    });
+  }
+}
+
+function showToast(message) {
+  let toast = document.getElementById('toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 20px;border-radius:6px;font-size:14px;z-index:10000;opacity:0;transition:opacity 0.3s';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.style.opacity = '1';
+  setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+}
+
 function closeModal() {
   elements.modalOverlay.classList.remove('visible');
   document.body.style.overflow = '';
