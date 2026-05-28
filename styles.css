@@ -844,6 +844,19 @@ body {
   top: 12px;
   right: 12px;
   z-index: 10;
+  background: #953939;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.ai-prompt-section .copy-prompt-btn:hover {
+  background: #b54444;
+}
+
+.ai-prompt-section .copy-prompt-btn:active {
+  background: #7a2e2e;
 }
 
 .ai-prompt-text {
