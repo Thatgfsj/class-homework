@@ -436,7 +436,6 @@ document.addEventListener('keydown', e => {
 function init() {
   renderDateInfo();
   elements.loadingState.classList.remove('visible');
-  initEventListeners();
   filterHomeworks();
 }
 
