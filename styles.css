@@ -831,6 +831,34 @@ body {
   margin-bottom: 0;
 }
 
+/* AI Prompt Code Block */
+.ai-prompt-section {
+  margin-top: var(--space-lg);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ai-prompt-text {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: var(--space-lg);
+  border-radius: 8px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+
+.ai-prompt-text code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+}
+
 /* ========================================
    Footer
    ======================================== */
