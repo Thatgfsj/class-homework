@@ -443,7 +443,11 @@ elements.searchClear.addEventListener('click', () => {
 });
 
 elements.showExpiredBtn.addEventListener('click', () => {
-  renderHomeworks(homeworkData.homeworks);
+  const expired = homeworkData.homeworks.filter(h => {
+    if (activeFilter === 'all') return true;
+    return h.subject === activeFilter;
+  });
+  renderHomeworks(expired);
   elements.showExpiredBtn.style.display = 'none';
   elements.emptyState.querySelector('.empty-title').textContent = '暂无作业';
   elements.emptyState.querySelector('.empty-text').textContent = '当前没有符合筛选条件的作业';
