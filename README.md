@@ -4,7 +4,7 @@
 
 ## 访问地址
 
-**网站**: https://thatgfsj.github.io/class-homework/
+**网站**: [https://thatgfsj.github.io/class-homework/](http://classhomework.thatgfsj.xyz/)
 
 **GitHub 仓库**: https://github.com/Thatgfsj/class-homework
 
