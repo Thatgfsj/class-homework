@@ -504,13 +504,9 @@ body {
   gap: var(--space-lg);
 }
 
-/* All Section (hidden by default, toggled by button) */
-.all-section {
-  display: none;
-}
-
-.all-section.expanded {
-  display: block;
+/* Main Homework Section (近期作业) */
+.main-homework-section {
+  margin-bottom: var(--space-3xl);
 }
 
 /* Homework Card */

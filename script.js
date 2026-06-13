@@ -237,10 +237,10 @@ const elements = {
   filterButtons: document.getElementById('filterButtons'),
   showExpiredBtn: document.getElementById('showExpiredBtn'),
   showExpiredBtnText: document.getElementById('showExpiredBtnText'),
-  recentSection: document.getElementById('recentSection'),
-  recentGrid: document.getElementById('recentGrid'),
-  allSection: document.getElementById('allSection'),
-  homeworkGrid: document.getElementById('homeworkGrid'),
+  mainHomeworkSection: document.getElementById('mainHomeworkSection'),
+  mainHomeworkGrid: document.getElementById('mainHomeworkGrid'),
+  upcomingSection: document.getElementById('upcomingSection'),
+  upcomingGrid: document.getElementById('upcomingGrid'),
   emptyState: document.getElementById('emptyState'),
   loadingState: document.getElementById('loadingState'),
   modalOverlay: document.getElementById('modalOverlay'),
@@ -378,26 +378,37 @@ function createHomeworkCard(homework, index) {
   `;
 }
 
-function renderHomeworks(homeworks) {
-  if (homeworks.length === 0) {
-    elements.homeworkGrid.innerHTML = '';
+function renderMainHomeworkList(homeworks) {
+  // 全部刷新：默认只显示 active；点击「查看全部作业」后追加已过期，按 dueDate 升序
+  const source = allExpanded ? homeworks : homeworks.filter(isHomeworkActive);
+  const sorted = sortHomeworksForDisplay(source);
+  if (sorted.length === 0) {
+    elements.mainHomeworkGrid.innerHTML = '';
+    elements.mainHomeworkSection.style.display = 'none';
+    elements.emptyState.querySelector('.empty-title').textContent = '暂无作业';
+    elements.emptyState.querySelector('.empty-text').textContent = '当前没有符合筛选条件的作业';
     elements.emptyState.style.display = 'block';
     return;
   }
   elements.emptyState.style.display = 'none';
-  elements.homeworkGrid.innerHTML = homeworks.map((hw, index) => createHomeworkCard(hw, index)).join('');
+  elements.mainHomeworkSection.style.display = 'block';
+  elements.mainHomeworkGrid.innerHTML = sorted.map((hw, index) => createHomeworkCard(hw, index)).join('');
   bindCardEvents();
 }
 
-function renderRecentSection(homeworks) {
+function renderUpcomingList(homeworks) {
+  // 近期截止：2 行高亮（桌面 3×2=6 个，移动端通过 nth-child 只显示 2 个）
   const RECENT_COUNT = 6;
-  const recents = getRecentHomeworks(homeworks, RECENT_COUNT);
+  const recents = homeworks
+    .filter(isHomeworkActive)
+    .sort((a, b) => a.dueDate.localeCompare(b.dueDate))
+    .slice(0, RECENT_COUNT);
   if (recents.length === 0) {
-    elements.recentSection.style.display = 'none';
+    elements.upcomingSection.style.display = 'none';
     return;
   }
-  elements.recentSection.style.display = 'block';
-  elements.recentGrid.innerHTML = recents.map((hw, index) => createHomeworkCard(hw, index)).join('');
+  elements.upcomingSection.style.display = 'block';
+  elements.upcomingGrid.innerHTML = recents.map((hw, index) => createHomeworkCard(hw, index)).join('');
   bindCardEvents();
 }
 
@@ -496,31 +507,9 @@ function filterHomeworks(filter = 'all', searchTerm = '') {
     );
   }
   currentFiltered = filtered;
-  renderRecentSection(filtered);
-  if (allExpanded) {
-    renderAllSection();
-  } else {
-    elements.allSection.classList.remove('expanded');
-    elements.homeworkGrid.innerHTML = '';
-    elements.emptyState.style.display = 'none';
-  }
+  renderMainHomeworkList(filtered);
+  renderUpcomingList(filtered);
   elements.loadingState.classList.remove('visible');
-}
-
-function renderAllSection() {
-  const sorted = sortHomeworksForDisplay(currentFiltered);
-  if (sorted.length === 0) {
-    elements.allSection.classList.remove('expanded');
-    elements.homeworkGrid.innerHTML = '';
-    elements.emptyState.querySelector('.empty-title').textContent = '暂无作业';
-    elements.emptyState.querySelector('.empty-text').textContent = '当前没有符合筛选条件的作业';
-    elements.emptyState.style.display = 'block';
-    return;
-  }
-  elements.emptyState.style.display = 'none';
-  elements.allSection.classList.add('expanded');
-  elements.homeworkGrid.innerHTML = sorted.map((hw, index) => createHomeworkCard(hw, index)).join('');
-  bindCardEvents();
 }
 
 let activeFilter = 'all';
@@ -550,14 +539,11 @@ elements.searchClear.addEventListener('click', () => {
 
 elements.showExpiredBtn.addEventListener('click', () => {
   allExpanded = !allExpanded;
+  renderMainHomeworkList(currentFiltered);
   if (allExpanded) {
-    renderAllSection();
     elements.showExpiredBtnText.textContent = '收起全部作业';
     elements.showExpiredBtn.classList.add('active');
   } else {
-    elements.allSection.classList.remove('expanded');
-    elements.homeworkGrid.innerHTML = '';
-    elements.emptyState.style.display = 'none';
     elements.showExpiredBtnText.textContent = '查看全部作业';
     elements.showExpiredBtn.classList.remove('active');
   }

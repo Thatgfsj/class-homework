@@ -96,18 +96,29 @@
 
   <!-- Homework Grid -->
   <main class="main-content">
-    <!-- Recent Upcoming Homework -->
-    <section class="recent-section" id="recentSection">
+    <!-- Main Homework List (近期作业：默认显示所有 active，点击按钮后加入已过期) -->
+    <section class="main-homework-section" id="mainHomeworkSection">
+      <div class="section-title">
+        <span class="section-title-zh">近期作业</span>
+        <span class="section-title-en">Active Homeworks</span>
+      </div>
+      <div class="homework-grid" id="mainHomeworkGrid">
+        <!-- Homework cards will be injected here -->
+      </div>
+    </section>
+
+    <!-- Upcoming Deadlines (近期截止：2 行高亮最紧迫的) -->
+    <section class="recent-section" id="upcomingSection">
       <div class="section-title">
         <span class="section-title-zh">近期截止</span>
         <span class="section-title-en">Upcoming Deadlines</span>
       </div>
-      <div class="recent-grid" id="recentGrid">
-        <!-- Recent homework cards will be injected here -->
+      <div class="recent-grid" id="upcomingGrid">
+        <!-- Upcoming homework cards will be injected here -->
       </div>
     </section>
 
-    <!-- Toggle Button: View All -->
+    <!-- Toggle Button: View All (including expired) -->
     <div class="show-expired-container">
       <button class="show-expired-btn" id="showExpiredBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -116,17 +127,6 @@
         <span id="showExpiredBtnText">查看全部作业</span>
       </button>
     </div>
-
-    <!-- All Homework -->
-    <section class="all-section" id="allSection">
-      <div class="section-title">
-        <span class="section-title-zh">全部作业</span>
-        <span class="section-title-en">All Homeworks</span>
-      </div>
-      <div class="homework-grid" id="homeworkGrid">
-        <!-- Homework cards will be injected here -->
-      </div>
-    </section>
 
     <!-- Empty State -->
     <div class="empty-state" id="emptyState" style="display: none;">
