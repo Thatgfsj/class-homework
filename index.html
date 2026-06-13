@@ -107,8 +107,18 @@
       </div>
     </section>
 
+    <!-- Toggle Button: View All -->
+    <div class="show-expired-container">
+      <button class="show-expired-btn" id="showExpiredBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span id="showExpiredBtnText">查看全部作业</span>
+      </button>
+    </div>
+
     <!-- All Homework -->
-    <section class="all-section">
+    <section class="all-section" id="allSection">
       <div class="section-title">
         <span class="section-title-zh">全部作业</span>
         <span class="section-title-en">All Homeworks</span>
@@ -117,16 +127,6 @@
         <!-- Homework cards will be injected here -->
       </div>
     </section>
-
-    <!-- Show Expired Button -->
-    <div class="show-expired-container">
-      <button class="show-expired-btn" id="showExpiredBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-        <span>查看已截止作业</span>
-      </button>
-    </div>
 
     <!-- Empty State -->
     <div class="empty-state" id="emptyState" style="display: none;">

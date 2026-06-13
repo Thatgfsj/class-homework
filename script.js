@@ -236,8 +236,10 @@ const elements = {
   searchClear: document.getElementById('searchClear'),
   filterButtons: document.getElementById('filterButtons'),
   showExpiredBtn: document.getElementById('showExpiredBtn'),
+  showExpiredBtnText: document.getElementById('showExpiredBtnText'),
   recentSection: document.getElementById('recentSection'),
   recentGrid: document.getElementById('recentGrid'),
+  allSection: document.getElementById('allSection'),
   homeworkGrid: document.getElementById('homeworkGrid'),
   emptyState: document.getElementById('emptyState'),
   loadingState: document.getElementById('loadingState'),
@@ -396,6 +398,7 @@ function renderRecentSection(homeworks) {
   }
   elements.recentSection.style.display = 'block';
   elements.recentGrid.innerHTML = recents.map((hw, index) => createHomeworkCard(hw, index)).join('');
+  bindCardEvents();
 }
 
 function renderModal(homework) {
@@ -492,23 +495,38 @@ function filterHomeworks(filter = 'all', searchTerm = '') {
       h.subject.toLowerCase().includes(term)
     );
   }
+  currentFiltered = filtered;
   renderRecentSection(filtered);
-  const sorted = sortHomeworksForDisplay(filtered);
-  if (sorted.length > 0) {
-    renderHomeworks(sorted);
-    elements.showExpiredBtn.style.display = 'none';
-    elements.loadingState.classList.remove('visible');
+  if (allExpanded) {
+    renderAllSection();
   } else {
-    renderHomeworks([]);
+    elements.allSection.classList.remove('expanded');
+    elements.homeworkGrid.innerHTML = '';
+    elements.emptyState.style.display = 'none';
+  }
+  elements.loadingState.classList.remove('visible');
+}
+
+function renderAllSection() {
+  const sorted = sortHomeworksForDisplay(currentFiltered);
+  if (sorted.length === 0) {
+    elements.allSection.classList.remove('expanded');
+    elements.homeworkGrid.innerHTML = '';
     elements.emptyState.querySelector('.empty-title').textContent = '暂无作业';
     elements.emptyState.querySelector('.empty-text').textContent = '当前没有符合筛选条件的作业';
-    elements.showExpiredBtn.style.display = 'none';
-    elements.loadingState.classList.remove('visible');
+    elements.emptyState.style.display = 'block';
+    return;
   }
+  elements.emptyState.style.display = 'none';
+  elements.allSection.classList.add('expanded');
+  elements.homeworkGrid.innerHTML = sorted.map((hw, index) => createHomeworkCard(hw, index)).join('');
+  bindCardEvents();
 }
 
 let activeFilter = 'all';
 let activeSearch = '';
+let allExpanded = false;
+let currentFiltered = [];
 
 elements.filterButtons.addEventListener('click', e => {
   if (e.target.classList.contains('filter-btn')) {
@@ -531,14 +549,18 @@ elements.searchClear.addEventListener('click', () => {
 });
 
 elements.showExpiredBtn.addEventListener('click', () => {
-  const all = homeworkData.homeworks.filter(h => {
-    if (activeFilter === 'all') return true;
-    return h.subject === activeFilter;
-  });
-  renderHomeworks(sortHomeworksForDisplay(all));
-  elements.showExpiredBtn.style.display = 'none';
-  elements.emptyState.querySelector('.empty-title').textContent = '暂无作业';
-  elements.emptyState.querySelector('.empty-text').textContent = '当前没有符合筛选条件的作业';
+  allExpanded = !allExpanded;
+  if (allExpanded) {
+    renderAllSection();
+    elements.showExpiredBtnText.textContent = '收起全部作业';
+    elements.showExpiredBtn.classList.add('active');
+  } else {
+    elements.allSection.classList.remove('expanded');
+    elements.homeworkGrid.innerHTML = '';
+    elements.emptyState.style.display = 'none';
+    elements.showExpiredBtnText.textContent = '查看全部作业';
+    elements.showExpiredBtn.classList.remove('active');
+  }
 });
 
 elements.modalClose.addEventListener('click', closeModal);

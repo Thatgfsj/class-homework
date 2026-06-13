@@ -504,6 +504,15 @@ body {
   gap: var(--space-lg);
 }
 
+/* All Section (hidden by default, toggled by button) */
+.all-section {
+  display: none;
+}
+
+.all-section.expanded {
+  display: block;
+}
+
 /* Homework Card */
 .homework-card {
   background: var(--bg-card);
