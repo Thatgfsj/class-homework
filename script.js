@@ -236,6 +236,8 @@ const elements = {
   searchClear: document.getElementById('searchClear'),
   filterButtons: document.getElementById('filterButtons'),
   showExpiredBtn: document.getElementById('showExpiredBtn'),
+  recentSection: document.getElementById('recentSection'),
+  recentGrid: document.getElementById('recentGrid'),
   homeworkGrid: document.getElementById('homeworkGrid'),
   emptyState: document.getElementById('emptyState'),
   loadingState: document.getElementById('loadingState'),
@@ -299,6 +301,29 @@ function getTodayString() {
   return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
 }
 
+function isHomeworkActive(homework) {
+  const due = new Date(homework.dueDate + 'T23:59:59');
+  return homework.status === 'active' && due >= new Date();
+}
+
+// 全部作业排序：未过期在前（按 dueDate 升序，最近截止优先），已过期在后（按 dueDate 升序）
+function sortHomeworksForDisplay(homeworks) {
+  return homeworks.slice().sort((a, b) => {
+    const aActive = isHomeworkActive(a);
+    const bActive = isHomeworkActive(b);
+    if (aActive !== bActive) return aActive ? -1 : 1;
+    return a.dueDate.localeCompare(b.dueDate);
+  });
+}
+
+// 取 top N 个最近截止的活跃作业（受筛选条件限制）
+function getRecentHomeworks(homeworks, count) {
+  return homeworks
+    .filter(isHomeworkActive)
+    .sort((a, b) => a.dueDate.localeCompare(b.dueDate))
+    .slice(0, count);
+}
+
 // ========================================
 // UI 渲染函数
 // ========================================
@@ -360,6 +385,17 @@ function renderHomeworks(homeworks) {
   elements.emptyState.style.display = 'none';
   elements.homeworkGrid.innerHTML = homeworks.map((hw, index) => createHomeworkCard(hw, index)).join('');
   bindCardEvents();
+}
+
+function renderRecentSection(homeworks) {
+  const RECENT_COUNT = 6;
+  const recents = getRecentHomeworks(homeworks, RECENT_COUNT);
+  if (recents.length === 0) {
+    elements.recentSection.style.display = 'none';
+    return;
+  }
+  elements.recentSection.style.display = 'block';
+  elements.recentGrid.innerHTML = recents.map((hw, index) => createHomeworkCard(hw, index)).join('');
 }
 
 function renderModal(homework) {
@@ -456,20 +492,17 @@ function filterHomeworks(filter = 'all', searchTerm = '') {
       h.subject.toLowerCase().includes(term)
     );
   }
-  const now = new Date();
-  const active = filtered.filter(h => {
-    const due = new Date(h.dueDate + 'T23:59:59');
-    return h.status === 'active' && due >= now;
-  });
-  if (active.length > 0) {
-    renderHomeworks(active);
-    elements.showExpiredBtn.style.display = 'block';
+  renderRecentSection(filtered);
+  const sorted = sortHomeworksForDisplay(filtered);
+  if (sorted.length > 0) {
+    renderHomeworks(sorted);
+    elements.showExpiredBtn.style.display = 'none';
     elements.loadingState.classList.remove('visible');
-  } else if (filtered.length > 0) {
+  } else {
     renderHomeworks([]);
-    elements.emptyState.querySelector('.empty-title').textContent = '暂无进行中作业';
-    elements.emptyState.querySelector('.empty-text').textContent = '所有作业都已截止或已筛选掉';
-    elements.showExpiredBtn.style.display = 'block';
+    elements.emptyState.querySelector('.empty-title').textContent = '暂无作业';
+    elements.emptyState.querySelector('.empty-text').textContent = '当前没有符合筛选条件的作业';
+    elements.showExpiredBtn.style.display = 'none';
     elements.loadingState.classList.remove('visible');
   }
 }
@@ -498,11 +531,11 @@ elements.searchClear.addEventListener('click', () => {
 });
 
 elements.showExpiredBtn.addEventListener('click', () => {
-  const expired = homeworkData.homeworks.filter(h => {
+  const all = homeworkData.homeworks.filter(h => {
     if (activeFilter === 'all') return true;
     return h.subject === activeFilter;
   });
-  renderHomeworks(expired);
+  renderHomeworks(sortHomeworksForDisplay(all));
   elements.showExpiredBtn.style.display = 'none';
   elements.emptyState.querySelector('.empty-title').textContent = '暂无作业';
   elements.emptyState.querySelector('.empty-text').textContent = '当前没有符合筛选条件的作业';

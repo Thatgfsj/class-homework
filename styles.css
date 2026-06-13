@@ -467,6 +467,43 @@ body {
   gap: var(--space-lg);
 }
 
+/* Section Title */
+.section-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-title-zh {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+}
+
+.section-title-en {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Recent Section */
+.recent-section {
+  margin-bottom: var(--space-3xl);
+}
+
+.recent-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
 /* Homework Card */
 .homework-card {
   background: var(--bg-card);
@@ -1031,6 +1068,14 @@ body {
 
   .homework-grid {
     grid-template-columns: 1fr;
+  }
+
+  .recent-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recent-grid .homework-card:nth-child(n+3) {
+    display: none;
   }
 
   .modal {
