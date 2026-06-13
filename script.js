@@ -308,24 +308,6 @@ function isHomeworkActive(homework) {
   return homework.status === 'active' && due >= new Date();
 }
 
-// 全部作业排序：未过期在前（按 dueDate 升序，最近截止优先），已过期在后（按 dueDate 升序）
-function sortHomeworksForDisplay(homeworks) {
-  return homeworks.slice().sort((a, b) => {
-    const aActive = isHomeworkActive(a);
-    const bActive = isHomeworkActive(b);
-    if (aActive !== bActive) return aActive ? -1 : 1;
-    return a.dueDate.localeCompare(b.dueDate);
-  });
-}
-
-// 取 top N 个最近截止的活跃作业（受筛选条件限制）
-function getRecentHomeworks(homeworks, count) {
-  return homeworks
-    .filter(isHomeworkActive)
-    .sort((a, b) => a.dueDate.localeCompare(b.dueDate))
-    .slice(0, count);
-}
-
 // ========================================
 // UI 渲染函数
 // ========================================
@@ -379,9 +361,10 @@ function createHomeworkCard(homework, index) {
 }
 
 function renderMainHomeworkList(homeworks) {
-  // 全部刷新：默认只显示 active；点击「查看全部作业」后追加已过期，按 dueDate 升序
-  const source = allExpanded ? homeworks : homeworks.filter(isHomeworkActive);
-  const sorted = sortHomeworksForDisplay(source);
+  // 近期作业：只显示 active (1)，按 dueDate 升序（最近截止优先）
+  const sorted = homeworks
+    .filter(isHomeworkActive)
+    .sort((a, b) => a.dueDate.localeCompare(b.dueDate));
   if (sorted.length === 0) {
     elements.mainHomeworkGrid.innerHTML = '';
     elements.mainHomeworkSection.style.display = 'none';
@@ -397,11 +380,11 @@ function renderMainHomeworkList(homeworks) {
 }
 
 function renderUpcomingList(homeworks) {
-  // 近期截止：2 行高亮（桌面 3×2=6 个，移动端通过 nth-child 只显示 2 个）
+  // 近期截止：显示最近过期的作业 (0)，按 dueDate 降序（最近过期优先），top 6（移动端 nth-child 显示 2 个）
   const RECENT_COUNT = 6;
   const recents = homeworks
-    .filter(isHomeworkActive)
-    .sort((a, b) => a.dueDate.localeCompare(b.dueDate))
+    .filter(h => !isHomeworkActive(h))
+    .sort((a, b) => b.dueDate.localeCompare(a.dueDate))
     .slice(0, RECENT_COUNT);
   if (recents.length === 0) {
     elements.upcomingSection.style.display = 'none';
@@ -514,7 +497,6 @@ function filterHomeworks(filter = 'all', searchTerm = '') {
 
 let activeFilter = 'all';
 let activeSearch = '';
-let allExpanded = false;
 let currentFiltered = [];
 
 elements.filterButtons.addEventListener('click', e => {
@@ -538,15 +520,8 @@ elements.searchClear.addEventListener('click', () => {
 });
 
 elements.showExpiredBtn.addEventListener('click', () => {
-  allExpanded = !allExpanded;
-  renderMainHomeworkList(currentFiltered);
-  if (allExpanded) {
-    elements.showExpiredBtnText.textContent = '收起全部作业';
-    elements.showExpiredBtn.classList.add('active');
-  } else {
-    elements.showExpiredBtnText.textContent = '查看全部作业';
-    elements.showExpiredBtn.classList.remove('active');
-  }
+  // 直接刷新整个页面以获取最新作业数据
+  location.reload();
 });
 
 elements.modalClose.addEventListener('click', closeModal);
