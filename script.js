@@ -361,10 +361,9 @@ function createHomeworkCard(homework, index) {
 }
 
 function renderMainHomeworkList(homeworks) {
-  // 近期作业：只显示 active (1)，按 dueDate 升序（最近截止优先）
-  const sorted = homeworks
-    .filter(isHomeworkActive)
-    .sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+  // 近期作业：默认仅 active (1)；toggle 后含已过期 (0+1)，按 dueDate 升序
+  const source = allExpanded ? homeworks : homeworks.filter(isHomeworkActive);
+  const sorted = source.slice().sort((a, b) => a.dueDate.localeCompare(b.dueDate));
   if (sorted.length === 0) {
     elements.mainHomeworkGrid.innerHTML = '';
     elements.mainHomeworkSection.style.display = 'none';
@@ -497,6 +496,7 @@ function filterHomeworks(filter = 'all', searchTerm = '') {
 
 let activeFilter = 'all';
 let activeSearch = '';
+let allExpanded = false;
 let currentFiltered = [];
 
 elements.filterButtons.addEventListener('click', e => {
@@ -520,8 +520,10 @@ elements.searchClear.addEventListener('click', () => {
 });
 
 elements.showExpiredBtn.addEventListener('click', () => {
-  // 直接刷新整个页面以获取最新作业数据
-  location.reload();
+  allExpanded = !allExpanded;
+  renderMainHomeworkList(currentFiltered);
+  elements.showExpiredBtnText.textContent = allExpanded ? '收起全部作业' : '查看全部作业';
+  elements.showExpiredBtn.classList.toggle('active', allExpanded);
 });
 
 elements.modalClose.addEventListener('click', closeModal);
