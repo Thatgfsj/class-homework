@@ -361,10 +361,17 @@ function createHomeworkCard(homework, index) {
 }
 
 function renderMainHomeworkList(homeworks) {
-  // 首页与 /all 页面均按 dueDate 升序排（最近截止优先）
+  // 首页与 /all 页面：active 排前（dueDate 升序），expired 排后（dueDate 升序）
   // 首页仅显示 active；/all 页面显示全部
   const source = isAllPage ? homeworks : homeworks.filter(isHomeworkActive);
-  const sorted = source.slice().sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+  const sorted = source.slice().sort((a, b) => {
+    if (isAllPage) {
+      const aActive = isHomeworkActive(a);
+      const bActive = isHomeworkActive(b);
+      if (aActive !== bActive) return aActive ? -1 : 1;
+    }
+    return a.dueDate.localeCompare(b.dueDate);
+  });
   if (sorted.length === 0) {
     elements.mainHomeworkGrid.innerHTML = '';
     elements.mainHomeworkSection.style.display = 'none';
