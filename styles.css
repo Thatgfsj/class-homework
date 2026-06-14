@@ -1028,6 +1028,17 @@ body {
    Responsive
    ======================================== */
 
+/* 缩放/中等宽度：近期截止区变 2 列 × 2 行 = 4 个 */
+@media (max-width: 1100px) {
+  .recent-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .recent-grid .homework-card:nth-child(n+5) {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .header-content {
     padding: var(--space-sm) var(--space-md);
