@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>作业公告板 | 中文233</title>
-  <meta name="description" content="中文233班作业发布平台，欢迎同学们随时查看各科作业">
+  <title>全部作业 | 中文233</title>
+  <meta name="description" content="中文233班全部作业（含已过期），按截止日期升序排列">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=20260614a">
+  <link rel="stylesheet" href="../styles.css?v=20260614a">
 </head>
 <body>
   <!-- Header -->
@@ -51,18 +51,18 @@
         </svg>
       </div>
       <div class="hero-text">
-        <h1 class="hero-title">作业公告板</h1>
+        <h1 class="hero-title">全部作业</h1>
         <p class="hero-subtitle">
           <span class="current-date" id="currentDate"></span>
           <span class="divider">|</span>
           <span class="current-weekday" id="currentWeekday"></span>
         </p>
-        <p class="hero-welcome">欢迎来到中文233班作业发布平台</p>
+        <p class="hero-welcome">按截止日期升序排列（最近截止优先）</p>
       </div>
       <div class="hero-decoration right">
         <svg viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M100 180C80 160 60 140 40 120C20 100 10 80 20 60C30 40 50 30 70 40C90 50 110 70 100 100C90 130 80 160 100 180Z" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-          <path d="M80 190C60 170 40 150 20 130" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+          <path d="M100 180C80 160 60 140 40 120C20 100 10 80 20 60C30 50 50 40 70 40C90 50 110 70 100 100C90 130 80 160 100 180Z" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+          <path d="M80 190C60 170 80 150 100 130" stroke="currentColor" stroke-width="1" opacity="0.2"/>
           <path d="M110 160C90 140 70 120 50 100" stroke="currentColor" stroke-width="1" opacity="0.2"/>
         </svg>
       </div>
@@ -94,37 +94,25 @@
     </div>
   </section>
 
-  <!-- Homework Grid -->
+  <!-- All Homeworks -->
   <main class="main-content">
-    <!-- Main Homework List (近期作业：默认显示所有 active，点击按钮后加入已过期) -->
     <section class="main-homework-section" id="mainHomeworkSection">
       <div class="section-title">
-        <span class="section-title-zh">近期作业</span>
-        <span class="section-title-en">Active Homeworks</span>
+        <span class="section-title-zh">全部作业</span>
+        <span class="section-title-en">All Homeworks</span>
       </div>
       <div class="homework-grid" id="mainHomeworkGrid">
         <!-- Homework cards will be injected here -->
       </div>
     </section>
 
-    <!-- Upcoming Deadlines (近期截止：2 行高亮最紧迫的) -->
-    <section class="recent-section" id="upcomingSection">
-      <div class="section-title">
-        <span class="section-title-zh">近期截止</span>
-        <span class="section-title-en">Upcoming Deadlines</span>
-      </div>
-      <div class="recent-grid" id="upcomingGrid">
-        <!-- Upcoming homework cards will be injected here -->
-      </div>
-    </section>
-
-    <!-- Toggle Button: View All (including expired) -->
+    <!-- Back to Home Button -->
     <div class="show-expired-container">
       <button class="show-expired-btn" id="showExpiredBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          <path d="M19 12H5m7-7l-7 7 7 7"/>
         </svg>
-        <span id="showExpiredBtnText">查看全部作业</span>
+        <span id="showExpiredBtnText">返回首页</span>
       </button>
     </div>
 
@@ -184,6 +172,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=20260614a"></script>
+  <script src="../script.js?v=20260614a"></script>
 </body>
 </html>

@@ -361,8 +361,9 @@ function createHomeworkCard(homework, index) {
 }
 
 function renderMainHomeworkList(homeworks) {
-  // 近期作业：默认仅 active (1)；toggle 后含已过期 (0+1)，按 dueDate 升序
-  const source = allExpanded ? homeworks : homeworks.filter(isHomeworkActive);
+  // 近期作业：仅显示 active (1)，按 dueDate 升序（最近截止优先）
+  // /all 页面：显示全部（含已过期），按 dueDate 升序
+  const source = isAllPage ? homeworks : homeworks.filter(isHomeworkActive);
   const sorted = source.slice().sort((a, b) => a.dueDate.localeCompare(b.dueDate));
   if (sorted.length === 0) {
     elements.mainHomeworkGrid.innerHTML = '';
@@ -379,7 +380,8 @@ function renderMainHomeworkList(homeworks) {
 }
 
 function renderUpcomingList(homeworks) {
-  // 近期截止：显示最近过期的作业 (0)，按 dueDate 降序（最近过期优先），top 6（移动端 nth-child 显示 2 个）
+  // 仅首页渲染：显示最近过期的作业 (0)，按 dueDate 降序，top 6
+  if (isAllPage) return;
   const RECENT_COUNT = 6;
   const recents = homeworks
     .filter(h => !isHomeworkActive(h))
@@ -494,9 +496,12 @@ function filterHomeworks(filter = 'all', searchTerm = '') {
   elements.loadingState.classList.remove('visible');
 }
 
+// 页面类型：true = /all 全部作业页，false = 首页
+const isAllPage = window.location.pathname.replace(/\/$/, '').endsWith('/all') ||
+                   window.location.pathname.endsWith('/all.html');
+
 let activeFilter = 'all';
 let activeSearch = '';
-let allExpanded = false;
 let currentFiltered = [];
 
 elements.filterButtons.addEventListener('click', e => {
@@ -520,10 +525,8 @@ elements.searchClear.addEventListener('click', () => {
 });
 
 elements.showExpiredBtn.addEventListener('click', () => {
-  allExpanded = !allExpanded;
-  renderMainHomeworkList(currentFiltered);
-  elements.showExpiredBtnText.textContent = allExpanded ? '收起全部作业' : '查看全部作业';
-  elements.showExpiredBtn.classList.toggle('active', allExpanded);
+  // 首页跳转到 /all 全部作业页；/all 页面返回首页
+  location.href = isAllPage ? '/' : 'all/';
 });
 
 elements.modalClose.addEventListener('click', closeModal);
